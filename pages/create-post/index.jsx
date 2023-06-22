@@ -21,28 +21,13 @@ export default function CreatePost() {
       user_id: user.id,
       image, //Pass it in here
     };
+    const { error } = await addPostTrigger(newPost);
 
-    export const addPost = async (_, { arg: newPost }) => {
-      let image = "";
-    
-      if (newPost?.image) {
-        const { publicUrl, error } = await uploadImage(newPost?.image);
-    
-        if (!error) {
-          image = publicUrl;
-        }
-      }
-    
-      const { data, error, status } = await supabase
-        .from("posts")
-        .insert({ ...newPost, image })
-        .select()
-        .single();
-    
-      return { data, error, status };
-    };
+    if (!error) {
+      router.push(`/blog/${slug}`);
+    }
   };
-
+  
   return (
     <BlogEditor
       heading="Create post"

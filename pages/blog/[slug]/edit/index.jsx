@@ -41,17 +41,31 @@ export default function EditBlogPost() {
   }
 
   return (
-    <BlogEditor
-      heading="Edit blog post"
-      title={post.title}
-      src={post.image}
-      alt={post.title}
-      content={post.body}
-      buttonText="Save changes"
-      onSubmit={handleOnSubmit}
-    />
-  );
-}
+    <>
+    {post && post.title && ( // Check if post and post.title are available before rendering the component
+      <BlogEditor
+        heading="Edit blog post"
+        title={post.title}
+        src={post.image}
+        alt={post.title}
+        content={post.body}
+        buttonText="Save changes"
+        onSubmit={handleOnSubmit}
+      />
+    )}
+  </>
+//);
+    // <BlogEditor
+    //   heading="Edit blog post"
+    //   title={post.title}
+    //   src={post.image}
+    //   alt={post.title}
+    //   content={post.body}
+    //   buttonText="Save changes"
+    //   onSubmit={handleOnSubmit}
+    // />
+   );
+ }
 
 export const getServerSideProps = async (ctx) => {
   const supabase = createPagesServerClient(ctx);
